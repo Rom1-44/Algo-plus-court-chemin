@@ -1,0 +1,138 @@
+import numpy as np
+G_adj={0:[1,2],1:[0,2],2:[1,4],3:[1,2],4:[2,3],5:[3,4]}
+
+print(type(G_adj))
+
+
+def bfs_li(G:dict,S:int)->[int]:
+    f=[S]
+    t=[]#'sommet'
+    while f!=[]:
+        p = f.pop(0) #'ici on extrait le premier element de f afin qu il soit traité'
+        t.append(p)  #'affiche la liste P'
+        for V in G[p]:#'on parcourt la liste associé a la clé (dans l ordre avce le pop
+        
+            if V not in f and V not in t:#'parcours des points de plus en plus loin,on evite les sommets deja parcourus'
+                f.append(V)
+    return V   
+        
+print(bfs_li(G_adj,0))  
+
+G=[[False,True ,True, False,False],
+   [False,False,True, False,False],
+   [False,False,False,True, False],
+   [False,False,False,True, False],
+   [False,False,True ,False,True ],
+   [False,False,False,False,True ]]
+
+def voisins(P:int,G:np.array)->[int]:
+    #retourne la liste d'adjacence du sommet P dans le graphe G
+    adj=[]
+    for j in range(len(G[P])):
+        if G[P,j]==True:
+            adj.append(j)
+    return adj 
+
+print(voisins(0,G))
+
+def bfs_mat(G:np.array,S:int)->[int]:
+    f=[S]
+    t=[]
+    while f!=[]:
+        p = f.pop(0)
+        t.append(p)
+        for V in voisins(S,G):
+        
+            if V not in f and V not in t:
+                f.append(V)
+    return V      
+
+def dfs_mat(G:np.array,S:int)->[int]:
+    f=[S]
+    t=[]
+    while S!=[]:
+        s = S.pop()
+        t.append(s)
+        for V in voisins(S,G):
+        
+            if S not in f and S not in t:
+                S.append(V)
+    return V    
+
+#applications des parcours de graphes
+def dfs_pere(G:dict,S:int)->[list]:
+    n=len(G)
+    f=[S]
+    t=[]
+    pere=[-1]*n
+    while f!=[]:
+        s = f.pop(0)
+        t.append(s)
+        for V in G[s]:
+            if S not in f and S not in t:
+                f.append(V)
+                pere.append(V)
+    return V and pere
+
+print(dfs_pere(G,0))
+
+def dfs_pere(G:dict,S:int)->[list]:
+    n=len(G)
+    f=[S]
+    t=[]
+    pere=[-1]*n
+    while f!=[]:
+        s = f.pop(0)
+        t.append(s)
+        for V in G[s]:
+            if V==False:
+                f.append(V)
+                pere.append(V)
+            elif V==True and pere!=V:
+                return False
+            
+G={0:[1,2], 1:[0,2,3], 2:[0,1], 3:[1], 4:[5,6,7], 5:[4,6,7], 6:[5,4,7], 7:[4,6,5]}
+
+def comps(G:np.array,S:int)->[[int]]:
+    t=[]
+    f=[S]
+    while f!=[]:
+        s=f.pop(0)
+        t.append(s)
+        for V in G[s]:
+            if t in bfs_li(G,S):
+                return t
+            elif t not in bfs_li(G,S):
+                return 
+
+
+def bfs_li(G:dict,S:int)->([int],[int]):
+    t=[]
+    f=[S]
+    pere=[-1]*len(G)
+    while f!=[]:
+        p=f.pop(0)
+        t.append(p)
+        for V in G[p]:
+            if V not in f and V not in t:
+                f.append(V)
+                pere[V]=p
+        return t,pere
+    
+print
+                
+G_adj={0:[1,2],1:[0,2],2:[1,4],3:[1,2],4:[2,3],5:[3,4]}
+def bfs_li(G:dict,S:int)->([int],[int]):
+    t=[]
+    f=[S]
+    pere=[-1]*len(G)
+    while f!=[]:
+        p=f.pop(0)
+        t.append(p)
+        for V in G[p]:
+            if V not in f and V not in t:
+                f.append(V)
+                pere[V]=p # a l'indice V que l'on stocke le pere avec append aucune precision
+    return t,pere
+    
+print(bfs_li(G_adj,0))
